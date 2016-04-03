@@ -5,11 +5,11 @@ module Seeme
       @connection = faraday_connection     
     end
 
-    def send_sms(to, text, from=nil)
+    def send_sms(to, text, message_id, from=nil)
       raise "You have to setup defult number, or set from parameter" if from.blank? && Seeme.default_number.blank?
       raise "You have to setup defult callback url" if Seeme.callback_url.blank?
       from = Seeme.default_number if from.blank?
-      sms = Sms.new({to: to, text: text, from: from})
+      sms = Sms.new({to: to, text: text, from: from, message_id: message_id})
       sms.send(self)
       sms
     end
