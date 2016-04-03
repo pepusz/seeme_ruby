@@ -35,7 +35,7 @@ describe Seeme::Sms do
       stub_request(:get, stub_base_url+"?callback=1,6,7&callbackurl=http://localhost/callback&format=json&key=user&message=Hello%20sms&number=1234&reference=525e3fb3b218980d35000002&sender=4567").
           to_return(body: MultiJson.dump({"result":"OK","price":14,"code":0,
           																"message":"Your message has been successfully received by the Gateway.",
-          																"charset":"GSM-7","split":1,"length":5}), status: 201) 
+          																"charset":"GSM-7","split":1,"length":5}), status: 200) 
     end	
 
 		it "should send if type TEMP" do
@@ -58,7 +58,7 @@ describe Seeme::Sms do
     it "should not save if response has error or status code not 201" do
       WebMock.reset!
          stub_request(:get, stub_base_url+"?callback=1,6,7&callbackurl=http://localhost/callback&format=json&key=user&message=Hello%20sms&number=1234&reference=525e3fb3b218980d35000002&sender=4567").
-          to_return(body: MultiJson.dump({"result":"ERR","price":0,"code":1,"message":"Missing parameter: number"}), status: 201) 
+          to_return(body: MultiJson.dump({"result":"ERR","price":0,"code":1,"message":"Missing parameter: number"}), status: 200) 
 
       sms = Seeme::Sms.new(to: 1234, from: 4567, text: "Hello sms",  message_id: "525e3fb3b218980d35000002")
       expect(sms.send(@client)).to eq false

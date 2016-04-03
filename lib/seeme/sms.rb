@@ -27,7 +27,7 @@ module Seeme
       resp = client.get("", params)
       
       resp_body = parse_response(resp)
-      if (resp_body[:result] == "OK" && resp.status == 201)
+      if (resp_body[:result] == "OK" && resp.status == 200)
         @date = Time.now
         @status = SENT
         return true
