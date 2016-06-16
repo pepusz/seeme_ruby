@@ -31,6 +31,9 @@ module Seeme
         @date = Time.now
         @status = SENT
         return true
+      else
+        puts resp_body
+        @errors << resp_body[:message]
       end
 
       return false
