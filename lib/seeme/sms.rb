@@ -52,6 +52,7 @@ module Seeme
       begin
         resp_body = MultiJson.load(response.body)
         resp_body = resp_body.deep_symbolize_keys
+        @errors << resp_body[:error] if resp_body[:error].present?
         if resp_body[:result] == 'ERR'
           @errors <<  "#{resp_body[:code]} #{resp_body[:message]}"
         end
