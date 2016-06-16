@@ -33,6 +33,7 @@ module Seeme
         @status = SENT
         true
       else
+        puts resp_body
         @status = ERROR
         false
       end
